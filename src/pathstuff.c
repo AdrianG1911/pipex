@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-char *joinpaths(char *cmd, char *path)
+static char *joinpaths(char *cmd, char *path)
 {
 	char	*joined;
 	char	*temp;
@@ -19,7 +19,7 @@ char *joinpaths(char *cmd, char *path)
 	}
 }
 
-int iterpaths(char *cmd, char **paths, char **testpath)
+static int iterpaths(char *cmd, char **paths, char **testpath)
 {
 	if (!(cmd[0]))
 	{
@@ -44,7 +44,7 @@ int iterpaths(char *cmd, char **paths, char **testpath)
 	return (0);
 }
 
-char *findexecpath(char *cmd, char **paths)
+static char *findexecpath(char *cmd, char **paths)
 {
 	char *testpath;
 
@@ -62,7 +62,7 @@ char *findexecpath(char *cmd, char **paths)
 	return (NULL);
 }
 
-char **getpaths(char *envp[])
+static char **getpaths(char *envp[])
 {
 	int i;
 

@@ -3,8 +3,10 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm
 
-SRCS		= src/pipex.c src/pathstuff.c src/utils.c src/fork.c \
-			  src/pipe.c src/exec.c
+SRCS		= src/pipex.c src/pathstuff.c src/utils.c src/parse_args.c \
+			  src/parse_args_count.c src/parse_args_sep.c \
+			  src/parse_args_wc.c
+
 BONUS_SRCS 	= 
 
 

@@ -3,14 +3,17 @@
 void	freesplit(char **split)
 {
 	int i;
-
-	i = 0;
-	while (split[i])
+	
+	if (split)
 	{
-		free(split[i]);
-		i++;
+		i = 0;
+		while (split[i])
+		{
+			free(split[i]);
+			i++;
+		}
+		free(split);
 	}
-	free(split);
 }
 
 void	free_holy_split(char ***holy)
@@ -18,17 +21,20 @@ void	free_holy_split(char ***holy)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (holy[i])
+	if (holy)
 	{
-		j = 0;
-		while (holy[i][j])
+		i = 0;
+		while (holy[i])
 		{
-			free(holy[i][j]);
-			j++;
+			j = 0;
+			while (holy[i][j])
+			{
+				free(holy[i][j]);
+				j++;
+			}
+			free(holy[i]);
+			i++;
 		}
-		free(holy[i]);
-		i++;
+		free(holy);
 	}
-	free(holy);
 }

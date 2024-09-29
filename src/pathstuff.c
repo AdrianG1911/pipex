@@ -22,17 +22,18 @@ static char *joinpaths(char *cmd, char *path)
 static int iterpaths(char *cmd, char **paths, char **testpath)
 {
 	if (!(cmd[0]))
-	{
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		return (0);
-	}
+		return (ft_putstr_fd(": command not found\n", STDERR_FILENO), 0);
 	while (*paths)
 	{
 		*testpath = joinpaths(cmd, *paths);
+		if (!(*testpath))
+			return (0);
 		if (*testpath)
 		{
 			if (access(*testpath, X_OK) == 0)
-				return (1);	
+				return (1);
+			if (errno == EACCES)
+				return (0);
 		}
 		free(*testpath);
 		*testpath = NULL;
@@ -58,6 +59,11 @@ static char *findexecpath(char *cmd, char **paths)
 	{
 		if (iterpaths(cmd, paths, &testpath))
 			return (testpath);
+		if (errno == EACCES)
+		{
+			perror(testpath);
+			free(testpath);
+		}
 	}
 	return (NULL);
 }

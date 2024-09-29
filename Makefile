@@ -5,7 +5,8 @@ RM			= rm
 
 SRCS		= src/pipex.c src/pathstuff.c src/utils.c src/parse_args.c \
 			  src/parse_args_count.c src/parse_args_sep.c \
-			  src/parse_args_wc.c
+			  src/parse_args_wc.c src/open.c \
+			  src/error.c src/init_pipex.c
 
 BONUS_SRCS 	= 
 

@@ -57,17 +57,17 @@ char	**nosep_arg(char *arg, char **parsed)
 	return (parsed);
 }
 
-char	**sep_arg_split(char *arg, char fORc)
+char	**sep_arg_split(char *arg, char fileORcmd)
 {
 	char	**parsed;
 
-	if (fORc == 1)
+	if (fileORcmd == 1)
 		parsed = (char **)ft_calloc(2, sizeof(char *));
 	else
 		parsed = (char **)ft_calloc((countarg(arg) + 1), sizeof(char *));
 	if (!parsed)
 		return (NULL);
-	if (fORc == 1)
+	if (fileORcmd == 1)
 		parsed = nosep_arg(arg, parsed);
 	else
 		parsed = sep_arg(arg, parsed);

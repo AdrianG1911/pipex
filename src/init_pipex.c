@@ -53,7 +53,5 @@ t_pipex	*init_spipex(char *argv[], char *envp[])
 	if (create_pipe(spipex) == -1)
         return (free_spipex(spipex), NULL);
 	init_spipex_cmdpth(spipex, spipex->holy);
-	if (!spipex->cmd1_path || !spipex->cmd2_path)
-		return (free_spipex(spipex), NULL);
 	return (spipex);
 }

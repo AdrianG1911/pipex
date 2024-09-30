@@ -38,16 +38,20 @@ int	childtwo(t_pipex *spipex, pid_t pid2)
 		return (1);
 }
 
-void	parent(t_pipex *spipex, pid_t pid, pid_t pid2)
+int	parent(t_pipex *spipex, pid_t pid, pid_t pid2)
 {
+	int	last_status;
+
 	close(spipex->pipe_fds[0]);
 	close(spipex->pipe_fds[1]);
 	waitpid(pid, NULL, 0);
-	waitpid(pid2, NULL, 0); 
+	waitpid(pid2, &last_status, 0);
+	return (last_status & 0xFF);
 }
 
 int	pipex(char *argv[], char *envp[])
 {
+	int		status;
 	pid_t	pid;
 	pid_t	pid2;
 	t_pipex	*spipex;
@@ -60,17 +64,13 @@ int	pipex(char *argv[], char *envp[])
 		return (perror("fork"), free_spipex(spipex), -1);
 	if (childone(spipex, pid) == -1)
 		return (-1);
-	else
-	{
-		pid2 = fork();
-		if (pid2 == -1)
-			return (perror("fork for cmd2"), free_spipex(spipex), -1);
-		if (childtwo(spipex, pid2) == -1)
-			return (-1);
-		else
-			parent(spipex, pid, pid2);
-	}
-	return (free_spipex(spipex), 1);
+	pid2 = fork();
+	if (pid2 == -1)
+		return (perror("fork for cmd2"), free_spipex(spipex), -1);
+	if (childtwo(spipex, pid2) == -1)
+		return (-1);
+	status = parent(spipex, pid, pid2);
+	return (free_spipex(spipex), status);
 }
 
 // void print_spipex(t_pipex *spipex) {
@@ -110,11 +110,15 @@ int	pipex(char *argv[], char *envp[])
 
 int main(int argc, char *argv[], char *envp[])
 {
+	int	status;
 	if (argc < 5)
-		return (ft_putstr_fd("error: not enough arguments\n", STDERR_FILENO), 0);
+		return (ft_putstr_fd("error: not enough arguments\n", STDERR_FILENO), 1);
 	if (argc > 5)
-		return (ft_putstr_fd("error: too many arguments\n", STDERR_FILENO), 0);
-	if (pipex(argv, envp) == -1)
+		return (ft_putstr_fd("error: too many arguments\n", STDERR_FILENO), 1);
+	status = pipex(argv, envp);
+	if (status == -1)
 		return (memerror(errno));
-	return (0);
+	else
+		return (status);
+	
 }

@@ -8,5 +8,5 @@ int	memerror(int error)
 	}
 	else
 		ft_putstr_fd("", STDERR_FILENO);
-	return (0);
+	return (1);
 }

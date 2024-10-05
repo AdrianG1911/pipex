@@ -73,41 +73,6 @@ int	pipex(char *argv[], char *envp[])
 	return (free_spipex(spipex), status);
 }
 
-// void print_spipex(t_pipex *spipex) {
-//     if (!spipex) {
-//         printf("spipex is NULL\n");
-//         return;
-//     }
-
-//     printf("Infile FD: %d\n", spipex->infile_fd);
-//     printf("Outfile FD: %d\n", spipex->outfile_fd);
-//     printf("Pipe FDs: [%d, %d]\n", spipex->pipe_fds[0], spipex->pipe_fds[1]);
-    
-//     // Print cmd1_path
-//     if (spipex->cmd1_path) {
-//         printf("Command 1 Path: %s\n", spipex->cmd1_path);
-//     } else {
-//         printf("Command 1 Path: NULL\n");
-//     }
-
-//     // Print cmd2_path
-//     if (spipex->cmd2_path) {
-//         printf("Command 2 Path: %s\n", spipex->cmd2_path);
-//     } else {
-//         printf("Command 2 Path: NULL\n");
-//     }
-
-//     // Print holy array
-//     printf("Holy Array:\n");
-//     for (int i = 0; spipex->holy[i]; i++) {
-//         printf("  holy[%d]: ", i);
-//         for (int j = 0; spipex->holy[i][j]; j++) {
-//             printf("%s ", spipex->holy[i][j]);
-//         }
-//         printf("\n");
-//     }
-// }
-
 int main(int argc, char *argv[], char *envp[])
 {
 	int	status;

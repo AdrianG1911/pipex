@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   open.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/06 16:11:05 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/10/06 17:01:30 by adrgutie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 int	open_file1_fd(char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -10,13 +22,12 @@ int	open_file1_fd(char *filename)
 	return (fd);
 }
 
-int open_file2_fd(char *filename)
+int	open_file2_fd(char *filename)
 {
-    int fd;
+	int	fd;
 
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd == -1)
-        perror(filename); 
-    return (fd);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		perror(filename);
+	return (fd);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_args_count.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/06 16:11:09 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/10/06 17:01:43 by adrgutie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 int	pass_single(char *arg)
@@ -13,7 +25,7 @@ int	pass_single(char *arg)
 	return (i);
 }
 
-int pass_double(char *arg)
+int	pass_double(char *arg)
 {
 	int	i;
 
@@ -33,7 +45,7 @@ int pass_double(char *arg)
 
 int	pass_stuff(char *arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (!ft_isspace(arg[i]) && arg[i])

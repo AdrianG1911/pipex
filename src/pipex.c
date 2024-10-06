@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/06 16:11:25 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/10/06 17:02:57 by adrgutie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 int	childone(t_pipex *spipex, pid_t pid)
@@ -73,9 +85,10 @@ int	pipex(char *argv[], char *envp[])
 	return (free_spipex(spipex), status);
 }
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	int	status;
+
 	if (argc < 5)
 		return (ft_putstr_fd("error: not enough arguments\n", STDERR_FILENO), 1);
 	if (argc > 5)
@@ -85,5 +98,4 @@ int main(int argc, char *argv[], char *envp[])
 		return (memerror(errno));
 	else
 		return (status);
-	
 }

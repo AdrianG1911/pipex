@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_args.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/06 16:11:19 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/10/06 17:02:10 by adrgutie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	if (c == ' ' || c == '\t')
 		return (1);
@@ -14,7 +26,7 @@ int ft_isspace(int c)
 int	argcountnosep(char *arg)
 {
 	int	len;
-	int i;
+	int	i;
 
 	len = 0;
 	i = 0;
@@ -34,7 +46,7 @@ int	argcountnosep(char *arg)
 char	**nosep_arg(char *arg, char **parsed)
 {
 	int	i;
-	int oldi;
+	int	oldi;
 	int	j;
 
 	parsed[0] = (char *)ft_calloc(argcountnosep(arg) + 1, sizeof(char));

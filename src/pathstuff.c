@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pathstuff.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/06 16:10:44 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/10/06 17:02:15 by adrgutie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-static char *joinpaths(char *cmd, char *path)
+static char	*joinpaths(char *cmd, char *path)
 {
 	char	*joined;
 	char	*temp;
@@ -19,9 +31,9 @@ static char *joinpaths(char *cmd, char *path)
 	}
 }
 
-static int iterpaths(char *cmd, char **paths, char **testpath)
+static int	iterpaths(char *cmd, char **paths, char **testpath)
 {
-	if (!(cmd[0]))
+	if (!cmd[0])
 		return (ft_putstr_fd(": command not found\n", STDERR_FILENO), 0);
 	while (*paths)
 	{
@@ -45,9 +57,9 @@ static int iterpaths(char *cmd, char **paths, char **testpath)
 	return (0);
 }
 
-static char *findexecpath(char *cmd, char **paths)
+static char	*findexecpath(char *cmd, char **paths)
 {
-	char *testpath;
+	char	*testpath;
 
 	if (ft_strchr(cmd, '/'))
 	{
@@ -68,9 +80,9 @@ static char *findexecpath(char *cmd, char **paths)
 	return (NULL);
 }
 
-static char **getpaths(char *envp[])
+static char	**getpaths(char *envp[])
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -80,7 +92,7 @@ static char **getpaths(char *envp[])
 		i++;
 	}
 	if (!envp[i])
-		return(NULL);
+		return (NULL);
 	return (ft_split(envp[i] + 5, ':'));
 }
 

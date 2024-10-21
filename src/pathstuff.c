@@ -80,9 +80,10 @@ static char	*findexecpath(char *cmd, char **paths)
 	return (NULL);
 }
 
-static char	**getpaths(char *envp[])
+static char **getpaths(char *envp[])
 {
-	int	i;
+	int i;
+	char **emptypath;
 
 	i = 0;
 	while (envp[i])
@@ -92,7 +93,13 @@ static char	**getpaths(char *envp[])
 		i++;
 	}
 	if (!envp[i])
-		return (NULL);
+	{
+		emptypath = (char **)ft_calloc(2, sizeof(char *));
+		if (!emptypath)
+			return (NULL);
+		emptypath[0] = ft_strdup("");
+		return(emptypath);
+	}
 	return (ft_split(envp[i] + 5, ':'));
 }
 

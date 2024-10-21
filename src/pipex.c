@@ -58,7 +58,11 @@ int	parent(t_pipex *spipex, pid_t pid, pid_t pid2)
 	close(spipex->pipe_fds[1]);
 	waitpid(pid, NULL, 0);
 	waitpid(pid2, &last_status, 0);
-	return (last_status & 0xFF);
+	if (WIFEXITED(last_status)) 
+		return (WEXITSTATUS(last_status));
+	else if (WIFSIGNALED(last_status))
+		return (128 + WTERMSIG(last_status));
+	return (-1);
 }
 
 int	pipex(char *argv[], char *envp[])

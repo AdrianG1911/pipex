@@ -6,13 +6,13 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:11:02 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/06 17:01:27 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:26:58 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int		make_filenames_filefds(int argc, char *argv[], t_pipex *spipex)
+int	make_filenames_filefds(int argc, char *argv[], t_pipex *spipex)
 {
 	spipex->infile_name = nosep_arg(argv[1]);
 	spipex->outfile_name = nosep_arg(argv[argc - 1]);
@@ -77,7 +77,8 @@ int	make_cmd_paths(int argc, t_pipex *spipex)
 	i = 0;
 	while (i < to_make)
 	{
-		spipex->cmd_paths[i] = findcmdpath(spipex->cmd_args[i][0], spipex->envp);
+		spipex->cmd_paths[i] = \
+		findcmdpath(spipex->cmd_args[i][0], spipex->envp);
 		if (spipex->cmd_paths[i] == NULL)
 			return (freesplit(spipex->cmd_paths), -1);
 		i++;

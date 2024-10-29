@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:11:19 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/06 17:02:10 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:27:01 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int	argcountnosep(char *arg)
 
 char	*nosep_arg(char *arg)
 {
-	int	i;
-	int	oldi;
-	int	j;
-	char *parsed;
+	int		i;
+	int		oldi;
+	int		j;
+	char	*parsed;
 
-	parsed = (char *)ft_calloc(argcountnosep(arg) + 1, sizeof(char));
+	parsed = (char *)ft_calloc(argcountnosep(arg) + 2, sizeof(char));
 	if (!parsed)
 		return (NULL);
 	i = 0;
@@ -97,7 +97,7 @@ char	**sep_arg(char *arg)
 {
 	char	**parsed;
 
-	parsed = (char **)ft_calloc(countarg(arg) + 1, sizeof(char *));
+	parsed = (char **)ft_calloc(countarg(arg) + 2, sizeof(char *));
 	if (!parsed)
 		return (NULL);
 	if (sep_loop(parsed, arg) == -1)
@@ -108,4 +108,3 @@ char	**sep_arg(char *arg)
 		return (freesplit(parsed), NULL);
 	return (parsed);
 }
-

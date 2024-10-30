@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:10:44 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/06 17:02:15 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:27:01 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static char	*joinpaths(char *cmd, char *path)
 
 static int	iterpaths(char *cmd, char **paths, char **testpath)
 {
-	if (!cmd[0])
-		return (ft_putstr_fd(": command not found\n", STDERR_FILENO), 0);
+	if (cmd[0] == 0)
+		return (ft_putstr_fd(": permission denied\n", STDERR_FILENO), 0);
 	while (*paths)
 	{
 		*testpath = joinpaths(cmd, *paths);
@@ -53,7 +53,7 @@ static int	iterpaths(char *cmd, char **paths, char **testpath)
 	}
 	if (cmd)
 		ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	ft_putstr_fd("command not found: \n", STDERR_FILENO);
 	return (0);
 }
 
@@ -61,6 +61,8 @@ static char	*findexecpath(char *cmd, char **paths)
 {
 	char	*testpath;
 
+	errno = 0;
+	testpath = NULL;
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
@@ -80,10 +82,10 @@ static char	*findexecpath(char *cmd, char **paths)
 	return (NULL);
 }
 
-static char **getpaths(char *envp[])
+static char	**getpaths(char *envp[])
 {
-	int i;
-	char **emptypath;
+	int		i;
+	char	**emptypath;
 
 	i = 0;
 	while (envp[i])
@@ -98,7 +100,7 @@ static char **getpaths(char *envp[])
 		if (!emptypath)
 			return (NULL);
 		emptypath[0] = ft_strdup("");
-		return(emptypath);
+		return (emptypath);
 	}
 	return (ft_split(envp[i] + 5, ':'));
 }
@@ -112,5 +114,7 @@ char	*findcmdpath(char *cmd, char *envp[])
 	if (!paths)
 		return (NULL);
 	path = findexecpath(cmd, paths);
+	if (path == NULL)
+		path = (char *)ft_calloc(1, sizeof(char));
 	return (freesplit(paths), path);
 }

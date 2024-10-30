@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:11:12 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/06 17:01:46 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:26:59 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,3 @@ int	fill_any(char *arg, char *sep)
 	else
 		return (fill_stuff(arg, sep));
 }
-
-

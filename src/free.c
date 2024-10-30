@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:11:36 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/06 17:04:26 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:26:57 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,23 @@ void	freesplit(char **split)
 {
 	int	i;
 
-	ft_printf("freeing\n");
 	if (split == NULL)
 		return ;
 	i = 0;
 	while (split[i] != NULL)
 	{
 		free(split[i]);
+		split[i] = NULL;
 		i++;
 	}
 	free(split);
+	split = NULL;
 }
 
 void	free_cmd_args(t_pipex *spipex)
 {
-	int i;
-	
+	int	i;
+
 	if (spipex->cmd_args == NULL)
 		return ;
 	i = 0;
@@ -86,4 +87,3 @@ void	free_spipex(int argc, t_pipex *spipex)
 	free(spipex->pids);
 	free(spipex);
 }
-

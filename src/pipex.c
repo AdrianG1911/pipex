@@ -41,6 +41,8 @@ int	waitforpids(int argc, t_pipex *spipex)
 	close_all_fds(argc, spipex);
 	last_status = -1;
 	i = 0;
+	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
+		i++;
 	while (i < argc - 3)
 	{
 		if (spipex->pids[i] == -1 || spipex->pids[i] == -2)
@@ -65,6 +67,12 @@ int	pipex(int argc, char *argv[], char *envp[])
 	if (spipex == NULL)
 		return (-1);
 	i = -1;
+	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
+	{
+		i++;
+		if (put_input_in_pipe(argv, spipex) == -1)
+			return (free_spipex(argc, spipex), -1);
+	}
 	while (++i < (argc - 3))
 	{
 		spipex->pids[i] = fork();
@@ -82,7 +90,8 @@ int	main(int argc, char *argv[], char *envp[])
 	int	status;
 
 	if (argc < 5)
-		return (ft_putstr_fd("error: not enough arguments\n", STDERR_FILENO), 1);
+		return (ft_putstr_fd("error: not enough arguments\n", \
+		STDERR_FILENO), 1);
 	status = pipex(argc, argv, envp);
 	if (status == -1)
 		return (memerror(errno));

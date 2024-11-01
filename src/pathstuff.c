@@ -51,9 +51,8 @@ static int	iterpaths(char *cmd, char **paths, char **testpath)
 		*testpath = NULL;
 		paths++;
 	}
-	if (cmd)
-		ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd("command not found: \n", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
 	return (0);
 }
 

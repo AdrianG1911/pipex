@@ -31,3 +31,13 @@ int	open_file2_fd(char *filename)
 		perror(filename);
 	return (fd);
 }
+
+int	open_file_here_doc(char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+		perror(filename);
+	return (fd);
+}

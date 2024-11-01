@@ -18,8 +18,16 @@ int	make_filenames_filefds(int argc, char *argv[], t_pipex *spipex)
 	spipex->outfile_name = nosep_arg(argv[argc - 1]);
 	if (spipex->infile_name == NULL || spipex->outfile_name == NULL)
 		return (-1);
-	spipex->infile_fd = open_file1_fd(spipex->infile_name);
-	spipex->outfile_fd = open_file2_fd(spipex->outfile_name);
+	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
+	{
+		spipex->infile_fd = -1;
+		spipex->outfile_fd = open_file_here_doc(spipex->outfile_name);
+	}
+	else
+	{
+		spipex->infile_fd = open_file1_fd(spipex->infile_name);
+		spipex->outfile_fd = open_file2_fd(spipex->outfile_name);
+	}
 	return (1);
 }
 
@@ -75,6 +83,13 @@ int	make_cmd_paths(int argc, t_pipex *spipex)
 	if (spipex->cmd_paths == NULL)
 		return (-1);
 	i = 0;
+	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
+	{
+		i++;
+		spipex->cmd_paths[0] = ft_strdup("not");
+		if (spipex->cmd_paths[0] == NULL)
+			return (freesplit(spipex->cmd_paths), -1);
+	}
 	while (i < to_make)
 	{
 		spipex->cmd_paths[i] = \

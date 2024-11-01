@@ -19,6 +19,8 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+//get_next_line
+# include "get_next_line/get_next_line.h"
 
 //structure
 typedef struct s_pipex
@@ -57,8 +59,12 @@ char	*nosep_arg(char *arg);
 //open
 int		open_file1_fd(char *filename);
 int		open_file2_fd(char *filename);
+int		open_file_here_doc(char *filename);
 //error
 int		memerror(int error);
 //thing_to_thing
 void	thing_to_thing(int i, int argc, t_pipex *spipex);
+//here_doc
+int		put_input_in_pipe(char *argv[], t_pipex *spipex);
+
 #endif

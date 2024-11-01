@@ -26,7 +26,11 @@ SRCS		= src/pipex.c \
 			  src/open.c \
 			  src/error.c \
 			  src/init_pipex.c \
-			  src/thing_to_thing.c
+			  src/thing_to_thing.c \
+			  src/get_next_line/get_next_line.c \
+			  src/get_next_line/get_next_line_utils.c \
+			  src/eof.c
+
 
 
 OBJS		= $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
@@ -41,6 +45,8 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
+bonus: all
+
 clean:
 	$(RM) $(OBJ_DIR)
 	make clean -C libft
@@ -51,4 +57,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus

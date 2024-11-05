@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   thing_to_thing_hd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/12 17:00:59 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/08/17 21:40:27 by adrgutie         ###   ########.fr       */
+/*   Created: 2024/11/05 17:00:10 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/11/05 20:22:24 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftnop.h"
+#include "pipex.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	file_to_pipe_hd(int i, int argc, t_pipex *spipex)
 {
-	if (!s)
+	if (i != 1)
 		return ;
-	write(fd, s, ft_strlen(s));
-	ft_putchar_fd('\n', fd);
+	if (spipex->infile_fd < 0)
+		exit(EXIT_FAILURE);
+	if (dup2(spipex->infile_fd, STDIN_FILENO) == -1 || \
+		dup2(spipex->pipe_fds[i][WRITE], STDOUT_FILENO) == -1)
+	{
+		perror("dup2");
+		exit(EXIT_FAILURE);
+	}
+	execute(i, argc, spipex);
 }

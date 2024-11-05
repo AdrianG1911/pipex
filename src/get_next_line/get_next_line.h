@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 16:37:13 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/06/23 16:52:10 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:59:12 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <stdlib.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-# ifndef CLEAR_MEM
-#  define CLEAR_MEM -100
-# endif
+
+# define BUFFER_SIZE 42
+# define CLEAR_MEM -100
 
 char	*get_next_line(int fd);
 char	*free_ft_strjoin(char **s1, char **s2);

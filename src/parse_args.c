@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 16:11:19 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/29 22:27:01 by adrgutie         ###   ########.fr       */
+/*   Created: 2024/11/04 22:09:08 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/11/05 19:57:59 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	sep_loop(char **parsed, char *arg)
 	{
 		if (!ft_isspace(arg[i]) && arg[i])
 		{
-			parsed[count] = (char *)calloc(countargword(arg) + 1, sizeof(char));
+			parsed[count] = (char *)ft_calloc(countargword(arg) + 1, \
+			sizeof(char));
 			if (!parsed[count])
 				return (-1);
 			i += fill_any(arg + i, parsed[count]);

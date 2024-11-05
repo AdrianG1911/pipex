@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 16:11:02 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/29 22:26:58 by adrgutie         ###   ########.fr       */
+/*   Created: 2024/11/04 22:07:37 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/11/05 19:58:02 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int	make_filenames_filefds(int argc, char *argv[], t_pipex *spipex)
 	spipex->outfile_name = nosep_arg(argv[argc - 1]);
 	if (spipex->infile_name == NULL || spipex->outfile_name == NULL)
 		return (-1);
-	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
+	if (is_here_doc(spipex))
 	{
-		spipex->infile_fd = -1;
+		if (get_here_doc_fd_path(spipex) == -1)
+			return (-1);
 		spipex->outfile_fd = open_file_here_doc(spipex->outfile_name);
 	}
 	else
@@ -37,15 +38,13 @@ int	make_pipes(int argc, t_pipex *spipex)
 	int	i;
 
 	to_make = argc - 4;
-	spipex->pipe_fds = (int **)ft_calloc(to_make, sizeof(int *));
+	spipex->pipe_fds = \
+	(int (*)[2])ft_calloc(to_make, sizeof(*(spipex->pipe_fds)));
 	if (spipex->pipe_fds == NULL)
 		return (-1);
 	i = 0;
 	while (i < to_make)
 	{
-		spipex->pipe_fds[i] = (int *)ft_calloc(2, sizeof(int));
-		if (spipex->pipe_fds[i] == NULL)
-			return (free_pipes(argc, spipex), -1);
 		if (pipe(spipex->pipe_fds[i]) == -1)
 			return (free_pipes(argc, spipex), -1);
 		i++;
@@ -83,7 +82,7 @@ int	make_cmd_paths(int argc, t_pipex *spipex)
 	if (spipex->cmd_paths == NULL)
 		return (-1);
 	i = 0;
-	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
+	if (is_here_doc(spipex))
 	{
 		i++;
 		spipex->cmd_paths[0] = ft_strdup("not");

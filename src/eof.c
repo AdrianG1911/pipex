@@ -6,26 +6,33 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 22:26:50 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/29 22:26:55 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:58:04 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ctrlderrormsg(int numlines, char *limiter, char *full)
+int	ctrlderrormsg(int numlines, char *limiter, char *line)
 {
 	char	*numlinesstr;
 
+	free(line);
 	numlinesstr = ft_itoa(numlines);
 	if (numlinesstr == NULL)
-		return (free(full), NULL);
+		return (-1);
 	ft_putstr_fd("warning: here-document at line ", 2);
 	ft_putstr_fd(numlinesstr, 2);
 	free(numlinesstr);
 	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
 	ft_putstr_fd(limiter, 2);
 	ft_putstr_fd("\')\n", 2);
-	return (full);
+	return (1);
+}
+
+void	unlink_hd(t_pipex *spipex)
+{
+	if (unlink(spipex->here_doc_file_path) == -1)
+		perror("unlink");
 }
 
 char	*flush(char *full)
@@ -34,55 +41,39 @@ char	*flush(char *full)
 	return (full);
 }
 
-char	*input_loop(char *limiter, char *full, int numlines, int limlen)
+void	flush_free_close_open(char *line, t_pipex *spipex)
 {
-	char	*temp;
+	flush(NULL);
+	free(line);
+	close(spipex->infile_fd);
+	spipex->infile_fd = open(spipex->here_doc_file_path, O_RDONLY);
+}
+
+int	put_input_in_file(char *argv[], t_pipex *spipex)
+{
+	int		numlines;
+	int		limlen;
 	char	*line;
 
+	limlen = ft_strlen(argv[2]);
+	numlines = 1;
 	while (1)
 	{
 		ft_printf("> ");
 		line = get_next_line(1);
 		if (line == NULL)
-			return (free(full), flush(NULL));
-		if (line[0] == 0)
-			return (free(line), ctrlderrormsg(numlines, limiter, full));
-		if (ft_strncmp(line, limiter, limlen) == 0 && line[limlen] == '\n')
-			return (free(line), flush(full));
-		temp = full;
-		full = ft_strjoin(full, line);
-		numlines++;
-		free(temp);
+			return (-1);
+		if (line[0] == '\0')
+			return (ctrlderrormsg(numlines, argv[2], line));
+		if (ft_strncmp(line, argv[2], limlen) == 0 && line[limlen] == '\n')
+			break ;
+		if (write(spipex->infile_fd, line, strlen(line)) == -1)
+			return (flush(NULL), free(line), perror("write"), -1);
 		free(line);
-		if (full == NULL)
-			return (flush(NULL));
+		numlines++;
 	}
-}
-
-char	*get_input(char *limiter)
-{
-	int		limlen;
-	char	*full;
-	int		numlines;
-
-	full = (char *)ft_calloc(1, sizeof(char));
-	if (full == NULL)
-		return (NULL);
-	limlen = ft_strlen(limiter);
-	numlines = 1;
-	full = input_loop(limiter, full, numlines, limlen);
-	return (full);
-}
-
-int	put_input_in_pipe(char *argv[], t_pipex *spipex)
-{
-	char	*doc;
-
-	doc = get_input(argv[2]);
-	if (doc == NULL)
-		return (-1);
-	if (write(spipex->pipe_fds[0][1], doc, ft_strlen(doc)) == -1)
-		return (free(doc), perror("write"), -1);
-	close(spipex->pipe_fds[0][1]);
-	return (free(doc), 1);
+	flush_free_close_open(line, spipex);
+	if (spipex->infile_fd < 0)
+		return (perror("open"), -1);
+	return (1);
 }

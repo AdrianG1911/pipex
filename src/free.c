@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 16:11:36 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/29 22:26:57 by adrgutie         ###   ########.fr       */
+/*   Created: 2024/11/04 22:07:25 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/11/05 19:58:02 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,8 @@ void	free_pipes(int argc, t_pipex *spipex)
 	{
 		if (spipex->pipe_fds[i] == NULL)
 			continue ;
-		if (spipex->pipe_fds[i][0] >= 0)
-			close(spipex->pipe_fds[i][0]);
-		if (spipex->pipe_fds[i][1] >= 0)
-			close(spipex->pipe_fds[i][1]);
-		free(spipex->pipe_fds[i]);
+		close_set_fd(&spipex->pipe_fds[i][0]);
+		close_set_fd(&spipex->pipe_fds[i][1]);
 	}
 	free(spipex->pipe_fds);
 }
@@ -70,10 +67,10 @@ void	free_filenames_filefds(t_pipex *spipex)
 {
 	free(spipex->infile_name);
 	free(spipex->outfile_name);
-	if (spipex->infile_fd >= 0)
-		close(spipex->infile_fd);
-	if (spipex->outfile_fd >= 0)
-		close(spipex->outfile_fd);
+	unlink_hd(spipex);
+	free(spipex->here_doc_file_path);
+	close_set_fd(&spipex->infile_fd);
+	close_set_fd(&spipex->outfile_fd);
 }
 
 void	free_spipex(int argc, t_pipex *spipex)

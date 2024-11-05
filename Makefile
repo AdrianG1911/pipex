@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/06 16:11:57 by adrgutie          #+#    #+#              #
-#    Updated: 2024/10/08 18:28:33 by adrgutie         ###   ########.fr        #
+#    Created: 2024/11/04 22:09:43 by adrgutie          #+#    #+#              #
+#    Updated: 2024/11/05 17:00:30 by adrgutie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,10 @@ SRCS		= src/pipex.c \
 			  src/thing_to_thing.c \
 			  src/get_next_line/get_next_line.c \
 			  src/get_next_line/get_next_line_utils.c \
-			  src/eof.c
+			  src/eof.c \
+			  src/eof2.c \
+			  src/pipex_stuff.c \
+			  src/thing_to_thing_hd.c
 
 
 

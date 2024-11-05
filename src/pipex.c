@@ -5,33 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 16:11:25 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/10/29 22:27:02 by adrgutie         ###   ########.fr       */
+/*   Created: 2024/11/04 22:08:45 by adrgutie          #+#    #+#             */
+/*   Updated: 2024/11/05 19:57:57 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	close_all_fds(int argc, t_pipex *spipex)
-{
-	int	to_close;
-	int	i;
-
-	to_close = argc - 4;
-	i = 0;
-	while (i < to_close)
-	{
-		if (spipex->pipe_fds[i][0] >= 0)
-			close(spipex->pipe_fds[i][0]);
-		if (spipex->pipe_fds[i][1] >= 0)
-			close(spipex->pipe_fds[i][1]);
-		i++;
-	}
-	if (spipex->infile_fd >= 0)
-		close(spipex->infile_fd);
-	if (spipex->outfile_fd >= 0)
-		close(spipex->outfile_fd);
-}
 
 int	waitforpids(int argc, t_pipex *spipex)
 {
@@ -41,7 +20,7 @@ int	waitforpids(int argc, t_pipex *spipex)
 	close_all_fds(argc, spipex);
 	last_status = -1;
 	i = 0;
-	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
+	if (is_here_doc(spipex))
 		i++;
 	while (i < argc - 3)
 	{
@@ -58,21 +37,14 @@ int	waitforpids(int argc, t_pipex *spipex)
 	return (-1);
 }
 
-int	pipex(int argc, char *argv[], char *envp[])
+void	close_pipe(int pipe[])
 {
-	t_pipex	*spipex;
-	int		i;
+	close_set_fd(&pipe[READ]);
+	close_set_fd(&pipe[WRITE]);
+}
 
-	spipex = init_spipex(argc, argv, envp);
-	if (spipex == NULL)
-		return (-1);
-	i = -1;
-	if (ft_strncmp(spipex->infile_name, "here_doc", 9) == 0)
-	{
-		i++;
-		if (put_input_in_pipe(argv, spipex) == -1)
-			return (free_spipex(argc, spipex), -1);
-	}
+int	pipex_loop(int i, int argc, t_pipex *spipex)
+{
 	while (++i < (argc - 3))
 	{
 		spipex->pids[i] = fork();
@@ -85,11 +57,27 @@ int	pipex(int argc, char *argv[], char *envp[])
 	return (waitforpids(argc, spipex));
 }
 
+int	pipex(int argc, char *argv[], char *envp[])
+{
+	t_pipex	*spipex;
+	int		i;
+
+	spipex = init_spipex(argc, argv, envp);
+	if (spipex == NULL)
+		return (-1);
+	i = -1;
+	i += here_doc_check(argc, argv, spipex);
+	return (pipex_loop(i, argc, spipex));
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	int	status;
 
 	if (argc < 5)
+		return (ft_putstr_fd("error: not enough arguments\n", \
+		STDERR_FILENO), 1);
+	if (argc == 5 && (ft_strncmp(argv[1], "here_doc", 9) == 0))
 		return (ft_putstr_fd("error: not enough arguments\n", \
 		STDERR_FILENO), 1);
 	status = pipex(argc, argv, envp);

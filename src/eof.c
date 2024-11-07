@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 22:26:50 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/05 19:58:04 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/08 01:11:00 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	put_input_in_file(char *argv[], t_pipex *spipex)
 			return (ctrlderrormsg(numlines, argv[2], line));
 		if (ft_strncmp(line, argv[2], limlen) == 0 && line[limlen] == '\n')
 			break ;
-		if (write(spipex->infile_fd, line, strlen(line)) == -1)
+		if (write(spipex->infile_fd, line, ft_strlen(line)) == -1)
 			return (flush(NULL), free(line), perror("write"), -1);
 		free(line);
 		numlines++;

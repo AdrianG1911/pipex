@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 22:26:50 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/09 20:34:17 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/10 00:27:45 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	put_input_in_file(char *argv[], t_pipex *spipex)
 	while (1)
 	{
 		ft_printf("> ");
-		line = get_next_line(1);
+		line = get_next_line(STDIN_FILENO);
 		if (line == NULL)
 			return (-1);
 		if (line[0] == '\0')

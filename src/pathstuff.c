@@ -6,13 +6,13 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 16:10:44 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/05 19:57:58 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:56:01 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static char	*joinpaths(char *cmd, char *path)
+char	*joinpaths(char *cmd, char *path)
 {
 	char	*joined;
 	char	*temp;
@@ -81,7 +81,7 @@ static char	*findexecpath(char *cmd, char **paths)
 	return (NULL);
 }
 
-static char	**getpaths(char *envp[])
+char	**getpaths(char *envp[])
 {
 	int		i;
 	char	**emptypath;

@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 22:08:37 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/05 19:57:56 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:57:09 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ void	freesplit(char **split);
 //close
 void	close_set_fd(int *fd);
 void	close_all_fds(int argc, t_pipex *spipex);
-//exec
+//exec path
 char	*findcmdpath(char *cmd, char *envp[]);
+int		check_cmd_not_exist(char *cmd, char *envp[]);
+char	**getpaths(char *envp[]);
+char	*joinpaths(char *cmd, char *path);
 //parse helper
 int		ft_isspace(int c);
 int		countarg(char *arg);

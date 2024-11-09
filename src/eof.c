@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 22:26:50 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/08 01:11:00 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/09 20:07:58 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ctrlderrormsg(int numlines, char *limiter, char *line)
 
 void	unlink_hd(t_pipex *spipex)
 {
+	if (spipex->here_doc_file_path == NULL)
+		return ;
 	if (unlink(spipex->here_doc_file_path) == -1)
 		perror("unlink");
 }

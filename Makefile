@@ -6,7 +6,7 @@
 #    By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/04 22:09:43 by adrgutie          #+#    #+#              #
-#    Updated: 2024/11/05 17:00:30 by adrgutie         ###   ########.fr        #
+#    Updated: 2024/11/09 18:38:09 by adrgutie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS		= src/pipex.c \
 			  src/eof.c \
 			  src/eof2.c \
 			  src/pipex_stuff.c \
-			  src/thing_to_thing_hd.c
+			  src/thing_to_thing_hd.c \
+			  src/check_cmd_exists.c
 
 
 

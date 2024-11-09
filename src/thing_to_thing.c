@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 22:08:24 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/05 20:22:50 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:00:00 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	execute(int i, int argc, t_pipex *spipex)
 {
 	close_all_fds(argc, spipex);
+	if (check_cmd_not_exist(spipex->cmd_args[i][0], spipex->envp) == 127)
+		exit(127);
 	if (spipex->cmd_paths[i][0] == 0)
 		exit(EXIT_FAILURE);
 	if (access(spipex->cmd_paths[i], X_OK) != 0)

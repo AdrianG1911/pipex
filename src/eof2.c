@@ -6,7 +6,7 @@
 /*   By: adrgutie <adrgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:22:09 by adrgutie          #+#    #+#             */
-/*   Updated: 2024/11/09 20:22:50 by adrgutie         ###   ########.fr       */
+/*   Updated: 2024/11/09 20:41:42 by adrgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	find_unique_file_name(char *name)
 	numender = 0;
 	while (numender < INT_MAX)
 	{
+		name[0] = 0;
 		path_with_number(name, numender);
 		if (access(name, F_OK) != 0)
 			return (1);
